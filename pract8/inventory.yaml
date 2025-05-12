@@ -1,0 +1,16 @@
+all:
+  hosts:
+    web01: #Ubuntu
+      ansible_host: 10.131.0.16
+
+  vars:
+    ansible_user: user
+    ansible_password: abc
+
+  children:
+    webservers:
+      hosts:
+        web01
+    dbservers:
+      hosts:
+        db01
