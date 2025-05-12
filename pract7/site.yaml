@@ -1,0 +1,74 @@
+#cd /home/user/task
+#git clone https://gitlab.rebrainme.com/workshops/devopsv2/ansible-tasks-repos/DVPS-ANS-07.git
+
+- hosts: web01
+  become: true
+
+  vars:
+  vars_files:
+    - /home/user/task/DVPS-ANS-07/products.yaml
+    
+  tasks:
+  - name: Update apt and Install nginx
+    ansible.builtin.apt:
+      pkg:
+      - apt
+      - nginx
+      state: latest
+      update_cache: yes
+
+  - name: Start and enable nginx service
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  - name: Copy Nginx configuration file
+    ansible.builtin.template:
+      src: /home/user/task/DVPS-ANS-07/nginx.conf
+      dest: /etc/nginx/nginx.conf
+      mode: '0644'
+    notify:
+     - nginx reload                        # Вызов обработчика
+
+  - name: Remove files default and index.nginx-debian.html
+    ansible.builtin.file:
+      path: '{{ item.src }}'
+      state: absent
+    loop:
+      - { src: /etc/nginx/sites-enabled/default }
+      - { src: /var/www/html/index.nginx-debian.html }
+    notify:
+     - nginx reload
+
+  - name: Copy site.conf.j2
+    ansible.builtin.template:
+      src: /home/user/task/DVPS-ANS-07/site.conf.j2
+      dest: /etc/nginx/sites-available/site.conf
+      mode: '0644'
+
+  - name: Create a symbolic link
+    ansible.builtin.file:
+      src: /etc/nginx/sites-available/site.conf
+      dest: /etc/nginx/sites-enabled/site.conf
+      state: link
+    notify:
+     - nginx reload
+
+  - name: "create static pages"
+    ansible.builtin.template:
+      src: /home/user/task/static.j2
+      dest: /var/www/html/{{ item.name | lower }}.html
+    with_items: "{{ products }}"
+
+  - name: "create index page"
+    ansible.builtin.template:
+      src: /home/user/task/index.j2
+      dest: /var/www/html/index.html
+    with_items: "{{ products }}"
+
+  handlers:                               # Обработчик, который указывает веб-серверу перечитать конфигурацию
+    - name: nginx reload
+      service:
+        name: nginx
+        state: reloaded
