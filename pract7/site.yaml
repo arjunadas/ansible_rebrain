@@ -6,7 +6,7 @@
 
   vars:
   vars_files:
-    - /home/user/task/DVPS-ANS-07/products.yaml
+    - /home/user/task/products.yaml
     
   tasks:
   - name: Update apt and Install nginx
