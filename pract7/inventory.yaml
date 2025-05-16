@@ -5,7 +5,7 @@ all:
 
   vars:
     ansible_user: user
-    ansible_password: hgtaijp
+    ansible_password: 12345
 
   children:
     webservers:
