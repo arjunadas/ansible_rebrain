@@ -1,5 +1,6 @@
 #cd /home/user/task
 #git clone https://gitlab.rebrainme.com/workshops/devopsv2/ansible-tasks-repos/DVPS-ANS-07.git
+#cd DVPS-ANS-07 && cp products.yaml /home/user/task/products.yaml
 
 - hosts: web01
   become: true
