@@ -1,0 +1,9 @@
+---
+- hosts: web_servers
+  gather_facts: no
+  roles:
+    - role: nginx
+    - role: rebrain-web-std
+      vars:
+        nginx_redhat_log_format : '$status [$time_local] $remote_addr $request_time "$request" "$http_referer"'
+        company: rebrain

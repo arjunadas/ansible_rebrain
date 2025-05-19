@@ -1,0 +1,15 @@
+---
+# roles/rebrain-web-std/tasks/main.yml
+- name: Copy the new nginx.conf
+  become: yes
+  template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/nginx.conf"
+  notify:
+   - nginx_reload
+
+- name: Copy the new index.html
+  become: yes
+  template:
+    src: index.html.j2
+    dest: "/usr/share/nginx/html/index.html"
