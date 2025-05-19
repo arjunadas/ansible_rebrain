@@ -8,7 +8,7 @@ all:
     ansible_password: abc
 
   children:
-    webservers:
+    web_servers:
       hosts:
         web01
     dbservers:
