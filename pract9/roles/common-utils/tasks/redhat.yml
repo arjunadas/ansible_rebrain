@@ -3,9 +3,5 @@
 - name: install soft redhat
   become: yes
   ansible.builtin.dnf:
-    name:
-    - htop
-    - tools
-    - vim
-    - tmux    
+    name: "{{ installation_software_list }}"  
     state: latest

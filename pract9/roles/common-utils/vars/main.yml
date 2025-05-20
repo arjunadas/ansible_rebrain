@@ -3,3 +3,9 @@
 supported_os_family:
   redhat: redhat.yml
   debian: debian.yml
+  
+installation_software_list:
+   - htop
+   - net-tools
+   - vim
+   - tmux 

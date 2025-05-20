@@ -3,10 +3,6 @@
 - name: install soft debian
   become: yes
   ansible.builtin.apt:
-    pkg:
-    - htop
-    - net-tools
-    - vim
-    - tmux    
+    pkg: "{{ installation_software_list }}"
     state: latest
     update_cache: yes
