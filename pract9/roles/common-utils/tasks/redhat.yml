@@ -1,0 +1,10 @@
+---
+# roles/common-utils/tasks/redhat.yml   
+- name: install soft
+  ansible.builtin.dnf:
+    name:
+    - htop
+    - tools
+    - vim
+    - tmux    
+    state: latest

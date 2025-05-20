@@ -1,0 +1,15 @@
+---
+# roles/common-utils/meta/main.yml
+galaxy_info:
+  author: Author
+  description:
+  company: Rebrain
+  license: MIT
+  min_ansible_version: 2.10
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all 

@@ -1,0 +1,5 @@
+--- 
+# roles/nginx/tasks/stub.yml
+- name: Not Supported OS
+  fail:
+    msg: "This role doesn't support {{ ansible_facts['os_family'] }} OS Family!. Please check the role's meta section"

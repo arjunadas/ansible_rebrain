@@ -1,0 +1,11 @@
+---
+# roles/common-utils/tasks/debian.yml   
+- name: install soft
+  ansible.builtin.apt:
+    pkg:
+    - htop
+    - tools
+    - vim
+    - tmux    
+    state: latest
+    update_cache: yes
