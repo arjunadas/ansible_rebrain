@@ -2,6 +2,7 @@
 # roles/common-utils/tasks/redhat.yml   
 - name: install soft
   ansible.builtin.dnf:
+  become: yes
     name:
     - htop
     - tools

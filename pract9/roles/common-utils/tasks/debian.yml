@@ -2,9 +2,10 @@
 # roles/common-utils/tasks/debian.yml   
 - name: install soft
   ansible.builtin.apt:
+  become: yes
     pkg:
     - htop
-    - tools
+    - net-tools
     - vim
     - tmux    
     state: latest
