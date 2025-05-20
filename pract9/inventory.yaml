@@ -1,0 +1,18 @@
+all:
+  hosts:
+    web01: #Fedora
+      ansible_host: 10.131.0.16
+    db01: #Ubuntu
+      ansible_host: 10.131.0.17      
+      
+  vars:
+    ansible_user: user
+    ansible_password: abc
+
+  children:
+    web_servers:
+      hosts:
+        web01
+    dbservers:
+      hosts:
+        db01
