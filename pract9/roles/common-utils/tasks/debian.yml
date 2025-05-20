@@ -1,8 +1,8 @@
 ---
 # roles/common-utils/tasks/debian.yml   
-- name: install soft
-  ansible.builtin.apt:
+- name: install soft debian
   become: yes
+  ansible.builtin.apt:
     pkg:
     - htop
     - net-tools

@@ -9,11 +9,12 @@
 - name: Set default value if an item is not present in the list
   set_fact:
     task_file: "{{ supported_os_family[ansible_facts['os_family'] | lower] | default('stub.yml')}}"
- 
+
 - name: Include tasks for the proper OS
   include_tasks: "{{ task_file }}"
-    
+
 - name: Copy tmux.conf
+  become: true
   ansible.builtin.template:
     src: files/.tmux.conf
-    dest: /root/.tmux.conf    
+    dest: /root/.tmux.conf  

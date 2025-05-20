@@ -1,8 +1,8 @@
 ---
 # roles/common-utils/tasks/redhat.yml   
-- name: install soft
-  ansible.builtin.dnf:
+- name: install soft redhat
   become: yes
+  ansible.builtin.dnf:
     name:
     - htop
     - tools
