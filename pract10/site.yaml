@@ -1,0 +1,7 @@
+#ansible-galaxy role install geerlingguy.apache
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  roles:
+    - role: geerlingguy.apache
