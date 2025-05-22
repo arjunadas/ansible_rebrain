@@ -7,10 +7,5 @@
   gather_facts: yes
   roles:
     - role: nginx
+    - role: install-soft    
     - role: rebrain-web-std
-    - role: install-soft
-    
-- hosts: all
-  gather_facts: true
-  vars_files:
-    - vars.yml    
