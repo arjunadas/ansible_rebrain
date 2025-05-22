@@ -1,26 +1,26 @@
 ---
 # roles/nginx/tasks/redhat.yml
 - name: Nginx installation
-  block: 
+  block:
 
   - name: Add Nginx repository on CentOS/RHEL
-    become: yes
+    become: true
     yum_repository:
       name: nginx
       description: Official Nginx repository
       baseurl: http://nginx.org/packages/centos/$releasever/$basearch/
-      gpgcheck: true 
+      gpgcheck: true
       gpgkey: https://nginx.org/keys/nginx_signing.key
       enabled: true
   - name: Install Nginx on CentOS/RHEL latest version
-    become: yes
+    become: true
     yum:
       name: nginx
       state: latest
       update_cache: true
     when: nginx_redhat_nginx_version == ""
   - name: Install Nginx on CentOS/RHEL sepsific version {{ nginx_redhat_nginx_version }}
-    become: yes
+    become: true
     yum:
       name: "nginx-{{ nginx_redhat_nginx_version }}"
       state: present
@@ -31,10 +31,10 @@
 - name: Start nginx Service, then get package facts and publish them to the default page
   block:
   - name: Include common tasks
-    include_tasks: generic.yml
+    ansible.builtin.include_tasks: generic.yml
 
   - name: Copy the new welcome web page
-    become: yes
-    template:
+    become: true
+    ansible.builtin.template:
       src: index.html.j2
       dest: "{{ nginx_redhat_welcome_page_path }}/index.html"
