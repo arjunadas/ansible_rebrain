@@ -2,6 +2,7 @@
 # roles/rebrain-web-std/tasks/main.yml
 
 - name: Add a user to .htpasswd
+  become: yes
   community.general.htpasswd:
     path: "/etc/nginx/.htpasswd"
     name: "{{ nginx_user }}"
