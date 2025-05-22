@@ -33,22 +33,3 @@
       name: nginx
       state: started    # переводим в состояние запущено
       enabled: yes      # добавляем в автозагрузку
-
-- name: Get ansible_facts and publish them to the default page
-  block:
-  - name: Сollecting only the necessary facts
-    setup:
-      filter:
-        - ansible_distribution
-        - ansible_distribution_version
-  - name: Gather the package facts
-    ansible.builtin.package_facts:
-      manager: auto
-  - name: Add fact about nginx version
-    set_fact:
-      nginx_installed_version: "{{ ansible_facts.packages.nginx[0].version }}"
-  - name: Copy the new welcome web page
-    become: yes
-    template:
-      src: index.html.j2
-      dest: "{{ nginx_redhat_welcome_page_path }}/index.html"

@@ -21,6 +21,3 @@ ansible-vault encrypt /home/user/task/nginx.vault --vault-password-file .vault_p
 ansible-playbook -i inventory.yaml site.yaml --vault-password-file .vault_pass.txt
 
 
-#ansible-playbook -i inventory.yaml site.yaml -e "@/home/user/task/nginx.vault"  --vault-password-file .vault_pass.txt
-
-
