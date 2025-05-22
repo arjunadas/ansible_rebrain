@@ -1,0 +1,8 @@
+---
+# roles/install-soft/tasks/main.yml   
+- name: Install the python3-passlib
+  become: yes
+  ansible.builtin.dnf:
+    name:
+      - python3-passlib
+    state: latest    

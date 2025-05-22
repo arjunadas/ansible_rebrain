@@ -6,3 +6,4 @@
   roles:
     - role: nginx
     - role: rebrain-web-std
+    - role: install-soft
