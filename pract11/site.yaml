@@ -1,9 +1,16 @@
 ---
 - hosts: web_servers
+  vars_files:
+    - nginx.vault  
   vars: 
-    auth_basic_user_file: "/etc/nginx/.htpasswd"
+    - auth_basic_user_file: "/etc/nginx/.htpasswd"
   gather_facts: yes
   roles:
     - role: nginx
     - role: rebrain-web-std
     - role: install-soft
+    
+- hosts: all
+  gather_facts: true
+  vars_files:
+    - vars.yml    
