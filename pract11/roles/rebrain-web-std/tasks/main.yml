@@ -1,0 +1,17 @@
+---
+# roles/rebrain-web-std/tasks/main.yml
+
+- name: Add a user to .htpasswd
+  community.general.htpasswd:
+    path: "/etc/nginx/.htpasswd"
+    name: {{ nginx_user }}
+    password: {{ nginx_pass }}
+    
+    
+- name: Copy the new nginx.conf
+  become: yes
+  template:
+    src: nginx.conf.j2
+    dest: "/etc/nginx/nginx.conf"
+  notify:
+   - nginx_reload

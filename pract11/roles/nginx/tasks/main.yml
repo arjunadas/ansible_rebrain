@@ -1,0 +1,54 @@
+---
+# roles/nginx/tasks/main.yml
+- name: Nginx installation
+  block: 
+
+  - name: Add Nginx repository on Fedora/CentOS/RHEL
+    become: yes
+    yum_repository:
+      name: nginx
+      description: Official Nginx repository
+      baseurl: http://nginx.org/packages/centos/$releasever/$basearch/
+      gpgcheck: true 
+      gpgkey: https://nginx.org/keys/nginx_signing.key
+      enabled: true
+  - name: Install Nginx on Fedora/CentOS/RHEL latest version
+    become: yes
+    yum:
+      name: nginx
+      state: latest
+      update_cache: true
+    when: nginx_redhat_nginx_version == ""
+  - name: Install Nginx on Fedora/CentOS/RHEL sepsific version {{ nginx_redhat_nginx_version }}
+    become: yes
+    yum:
+      name: "nginx-{{ nginx_redhat_nginx_version }}"
+      state: present
+      allow_downgrade: true # если мы захотим переустановить пакет меньшей версии
+      update_cache: true
+    when: nginx_redhat_nginx_version != ""
+  - name: Start Nginx service
+    become: yes
+    service:
+      name: nginx
+      state: started    # переводим в состояние запущено
+      enabled: yes      # добавляем в автозагрузку
+
+- name: Get ansible_facts and publish them to the default page
+  block:
+  - name: Сollecting only the necessary facts
+    setup:
+      filter:
+        - ansible_distribution
+        - ansible_distribution_version
+  - name: Gather the package facts
+    ansible.builtin.package_facts:
+      manager: auto
+  - name: Add fact about nginx version
+    set_fact:
+      nginx_installed_version: "{{ ansible_facts.packages.nginx[0].version }}"
+  - name: Copy the new welcome web page
+    become: yes
+    template:
+      src: index.html.j2
+      dest: "{{ nginx_redhat_welcome_page_path }}/index.html"
