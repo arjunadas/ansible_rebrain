@@ -4,23 +4,23 @@
   block:
 
   - name: Adding nginx repository key
-    become: yes
-    apt_key:
+    become: true
+    ansible.builtin.apt_key:
       url: "http://nginx.org/keys/nginx_signing.key"
   - name: Add Nginx repository on Debian/Ubuntu
-    become: yes
-    apt_repository:
+    become: true
+    ansible.builtin.apt_repository:
       repo: "deb http://nginx.org/packages/{{ansible_distribution|lower}}/ {{ansible_distribution_release}} nginx"
   - name: Install Nginx on Debian/Ubuntu latest version
-    become: yes
-    apt:
+    become: true
+    ansible.builtin.apt:
       name: nginx
       state: latest
       update_cache: true
     when: nginx_debian_nginx_version == ""
   - name: Install Nginx on Debian/Ubuntu sepsific version {{ nginx_debian_nginx_version }}
-    become: yes
-    apt:
+    become: true
+    ansible.builtin.apt:
       name: "nginx={{ nginx_debian_nginx_version }}"
       state: present
       allow_downgrade: true # если мы захотим переустановить пакет меньшей версии
@@ -32,10 +32,11 @@
   block:
 
   - name: Include common tasks
-    include_tasks: generic.yml
+    ansible.builtin.include_tasks: generic.yml
 
   - name: Copy the new welcome web page
-    become: yes
-    template:
+    become: true
+    ansible.builtin.template:
       src: index.html.j2
       dest: "{{ nginx_debian_welcome_page_path }}/index.html"
+      mode: "0644"
