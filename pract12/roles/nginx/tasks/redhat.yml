@@ -14,6 +14,7 @@
         enabled: true
     - name: Install Nginx on CentOS/RHEL latest version
       become: true
+      # noqa package-latest
       ansible.builtin.dnf:
         name: nginx
         state: latest

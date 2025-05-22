@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: nginx
   namespace: rebrain
-  author: Rebrain Student 
+  author: Rebrain Student
   description: Install and manage an nginx server.
   company: Rebrain
   license: MIT
