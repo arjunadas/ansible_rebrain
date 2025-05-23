@@ -1,0 +1,8 @@
+---
+- name: Verify
+  hosts: molecule
+  tasks:
+    - name: Verify NGINX is up and running
+      ansible.builtin.uri:
+        url: http://localhost
+        status_code: 200

@@ -1,0 +1,26 @@
+---
+- name: Fail if molecule group is missing
+  hosts: localhost
+  tasks:
+    - name: Print some info
+      ansible.builtin.debug:
+        msg: "{{ groups }}"
+
+    - name: Assert group existence
+      ansible.builtin.assert:
+        that: "'molecule' in groups"
+        fail_msg: |
+          molecule group was not found inside inventory groups: {{ groups }}
+
+- name: Converge
+  hosts: molecule
+  gather_facts: true
+  tasks:
+    - name: Set Python 3 as the interpreter
+      ansible.builtin.set_fact:
+        ansible_python_interpreter: /usr/bin/python3
+    - name: Nginx role test 
+      ansible.builtin.include_role:
+        name: nginx
+        tasks_from: main.yml
+      register: result
