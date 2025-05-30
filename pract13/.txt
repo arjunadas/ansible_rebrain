@@ -1,1 +1,7 @@
-108
+git clone git@github.com:arjunadas/ansible_rebrain.git
+
+cd ansible_rebrain/pract13/roles/nginx
+
+docker build -t ubuntu_custom:22.04 -f Dockerfile.ubu22 .
+
+docker build -t ubuntu_custom:20.04 -f Dockerfile.ubu20 .
