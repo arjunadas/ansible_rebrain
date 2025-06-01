@@ -21,6 +21,6 @@
         ansible_python_interpreter: /usr/bin/python3
     - name: Nginx role test 
       ansible.builtin.include_role:
-        name: nginx
+        name: /home/user/task/roles/nginx
         tasks_from: main.yml
       register: result
